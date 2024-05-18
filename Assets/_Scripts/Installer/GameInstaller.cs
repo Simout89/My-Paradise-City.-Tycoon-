@@ -8,7 +8,5 @@ public class GameInstaller : MonoInstaller
         Container.Bind<BuildingGrid>().FromComponentInHierarchy().AsSingle();
         Container.Bind<ModeManager>().FromComponentInHierarchy().AsSingle();
         Container.Bind<BuildingManager>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<CurrencyManager>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<TimeManager>().FromComponentInHierarchy().AsSingle();
     }
 }

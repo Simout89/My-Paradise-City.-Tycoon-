@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrencyManager: MonoBehaviour
+public class CurrencyManager: Singleton<CurrencyManager>
 {
     private int _money = 0;
 
