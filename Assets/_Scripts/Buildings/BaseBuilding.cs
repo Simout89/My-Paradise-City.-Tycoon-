@@ -8,22 +8,23 @@ using Zenject;
 public abstract class BaseBuilding: MonoBehaviour
 {
     [SerializeField] private int PeopleSlot;
-    [SerializeField] private int MoneyMyltiplayer;
+    public int PeopleCount { get; private set; }
+    [SerializeField] public int MoneyMyltiplayer;
 
-    private void OnEnable()
-    {
-        TimeManager.Instance.OnTick += HandleTick;
-    }
-    private void OnDisable()
-    {
-        TimeManager.Instance.OnTick -= HandleTick;
-    }
+    //private void OnEnable()
+    //{
+    //    TimeManager.Instance.OnTick += HandleTick;
+    //}
+    //private void OnDisable()
+    //{
+    //    TimeManager.Instance.OnTick -= HandleTick;
+    //}
 
-    private void HandleTick()
-    {
-        TickUpdate();
-        CurrencyManager.Instance.AddMoney(MoneyMyltiplayer);
-    }
+    //private void HandleTick()
+    //{
+    //    TickUpdate();
+    //    CurrencyManager.Instance.AddMoney(MoneyMyltiplayer);
+    //}
 
     public virtual void TickUpdate() { }
 }

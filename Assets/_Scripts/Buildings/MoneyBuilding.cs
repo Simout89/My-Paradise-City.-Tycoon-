@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirPort : BaseBuilding
+public class MoneyBuilding : BaseBuilding
 {
-    private void Awake()
-    {
-        
-    }
+
 }

@@ -10,7 +10,7 @@ public class BuildingGrid : MonoBehaviour
     [Inject]
     private ModeManager modeManager;
 
-    public event Action<GameObject> onPlaceBuilding;
+    public event Action<BaseBuilding> onPlaceBuilding;
 
     public Vector2Int GridSize = new Vector2Int(10,10);
 
@@ -91,7 +91,7 @@ public class BuildingGrid : MonoBehaviour
         flyingBuilding.SetNormal();
         modeManager.ChangeMode(Modes.FreeMovement);
 
-        onPlaceBuilding?.Invoke(flyingBuilding.gameObject);
+        onPlaceBuilding?.Invoke(flyingBuilding.GetComponent<BaseBuilding>());
 
         flyingBuilding = null;
     }

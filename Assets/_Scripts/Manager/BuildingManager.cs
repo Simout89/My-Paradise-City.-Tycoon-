@@ -6,27 +6,37 @@ using Zenject;
 
 public class BuildingManager: MonoBehaviour
 {
-    Dictionary<int, GameObject> building = new Dictionary<int, GameObject>();
+    Dictionary<int, BaseBuilding> building = new Dictionary<int, BaseBuilding>();
 
     [Inject]
     private BuildingGrid _buildingGrid;
+    [Inject]
+    private TimeManager timeManager;
+    [Inject]
+    private CurrencyManager currencyManager;
 
     private void OnEnable()
     {
+        timeManager.OnTick += HandleTick;
         _buildingGrid.onPlaceBuilding += HandlePlaceBuilding;
     }
+
     private void OnDisable()
     {
+        timeManager.OnTick -= HandleTick;
         _buildingGrid.onPlaceBuilding -= HandlePlaceBuilding;
     }
 
-    private void HandlePlaceBuilding(GameObject building)
+    private void HandlePlaceBuilding(BaseBuilding building)
     {
         this.building.Add(this.building.Count + 1, building);
+    }
 
-        foreach(KeyValuePair<int, GameObject> kvp in this.building)
+    private void HandleTick()
+    {
+        foreach (KeyValuePair<int, BaseBuilding> kvp in this.building)
         {
-            Debug.Log(kvp.Value);
+            currencyManager.AddMoney(kvp.Value.MoneyMyltiplayer * kvp.Value.PeopleCount);
         }
     }
 }
