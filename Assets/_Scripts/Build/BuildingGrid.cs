@@ -1,10 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using Zenject;
 
 public class BuildingGrid : MonoBehaviour
 {
+    [Inject]
+    private ModeManager modeManager;
+
+    public event Action<GameObject> onPlaceBuilding;
+
     public Vector2Int GridSize = new Vector2Int(10,10);
 
     private Building[,] grid;
@@ -21,7 +28,7 @@ public class BuildingGrid : MonoBehaviour
         {
             Destroy(flyingBuilding);
         }
-        ModeManager.Instance.ChangeMode(Modes.Building);
+        modeManager.ChangeMode(Modes.Building);
         flyingBuilding = Instantiate(buildingPrefab);
     }
 
@@ -82,19 +89,10 @@ public class BuildingGrid : MonoBehaviour
         }
 
         flyingBuilding.SetNormal();
-        ModeManager.Instance.ChangeMode(Modes.FreeMovement);
-        flyingBuilding = null;
-    }
+        modeManager.ChangeMode(Modes.FreeMovement);
 
-    private void OnDrawGizmosSelected()
-    {
-        for (int x = 0; x < GridSize.x; x++)
-        {
-            for (int y = 0; y < GridSize.y; y++)
-            {
-                if ((x + y) % 2 == 0) Gizmos.color = new UnityEngine.Color(0.88f, 0f, 1f, 0.3f);
-                Gizmos.DrawCube(transform.position + new Vector3(x, 0f, y), new Vector3(1, 1, 1));
-            }
-        }
+        onPlaceBuilding?.Invoke(flyingBuilding.gameObject);
+
+        flyingBuilding = null;
     }
 }

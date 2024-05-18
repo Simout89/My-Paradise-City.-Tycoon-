@@ -2,19 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
+    [Inject]
+    private ModeManager modeManager;
+
     [SerializeField] private Transform target;
     private bool _move = true;
     private void OnEnable()
     {
-        ModeManager.Instance.OnModeChanged += HandleModeChanged;
+        modeManager.OnModeChanged += HandleModeChanged;
     }
     private void OnDisable()
     {
-        ModeManager.Instance.OnModeChanged += HandleModeChanged;
+        modeManager.OnModeChanged += HandleModeChanged;
     }
     private void HandleModeChanged(Modes modes)
     {

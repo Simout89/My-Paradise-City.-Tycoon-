@@ -3,26 +3,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public abstract class BaseBuilding: MonoBehaviour
+public abstract class BaseBuilding: MonoBehaviour, IBuilding
 {
+    [Inject]
+    private CurrencyManager currencyManager;
+
     [SerializeField] private int PeopleSlot;
     [SerializeField] private int MoneyMyltiplayer;
-    private void OnEnable()
+
+    [SerializeField] private float UpdatePerTime = 1f;
+    private float time;
+
+    private void Start()
     {
-        TimeManager.Instance.OnTick += HandleTick;
+        time = UpdatePerTime;
     }
 
-    private void OnDisable()
+    private void FixedUpdate()
     {
-        TimeManager.Instance.OnTick -= HandleTick;
+        time -= Time.fixedDeltaTime;
+        if (time <= 0)
+        {
+            HandleTick();
+            time = UpdatePerTime;
+        }
     }
 
     private void HandleTick()
     {
         TickUpdate();
-        CurrencyManager.Instance.AddMoney(MoneyMyltiplayer);
+        currencyManager.AddMoney(MoneyMyltiplayer);
     }
 
     public virtual void TickUpdate() { }
+
+    private CurrencyManager _currencyManager;
+    public void Intialize(CurrencyManager currencyManager)
+    {
+        _currencyManager = currencyManager;
+    }
+
+    public void AwakeBuilding()
+    {
+
+    }
 }

@@ -221,7 +221,7 @@ PrefabInstance:
       addedObject: {fileID: 777241412603781701}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cd25e43d31f5b524989bb59878f9e37a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3203727569180030450}
+      addedObject: {fileID: -3199964546879269724}
   m_SourcePrefab: {fileID: 100100000, guid: cd25e43d31f5b524989bb59878f9e37a, type: 3}
 --- !u!23 &228349122306126724 stripped
 MeshRenderer:
@@ -278,7 +278,7 @@ MonoBehaviour:
   - {fileID: 4898809702008648147}
   - {fileID: 819865353851742026}
   Size: {x: 2, y: 3}
---- !u!114 &-3203727569180030450
+--- !u!114 &-3199964546879269724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,8 +287,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7228925398641749188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93bf4007fefd9e14692f92dbb49f3ad8, type: 3}
+  m_Script: {fileID: 11500000, guid: eb21be9bb6e85ad46bfba6311bb8c66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PeopleSlot: 0
-  MoneyMyltiplayer: 5
+  PeopleSlot: 5
+  MoneyMyltiplayer: 1

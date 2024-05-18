@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrencyManager : Singleton<CurrencyManager>
+public class CurrencyManager: MonoBehaviour
 {
     private int _money = 0;
 
     public void AddMoney(int value)
     {
         _money += value;
-        print(_money);
+        Debug.Log(_money);
     }
 
     public bool TrySpendMoney(int value)

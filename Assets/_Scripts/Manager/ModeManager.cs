@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class ModeManager : Singleton<ModeManager>
+public class ModeManager: MonoBehaviour
 {
     public event Action<Modes> OnModeChanged;
 
