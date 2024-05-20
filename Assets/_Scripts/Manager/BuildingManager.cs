@@ -6,7 +6,7 @@ using Zenject;
 
 public class BuildingManager: MonoBehaviour
 {
-    Dictionary<int, BaseBuilding> building = new Dictionary<int, BaseBuilding>();
+    public Dictionary<int, BaseBuilding> building = new Dictionary<int, BaseBuilding>();
 
     [Inject]
     private BuildingGrid _buildingGrid;
@@ -36,7 +36,29 @@ public class BuildingManager: MonoBehaviour
     {
         foreach (KeyValuePair<int, BaseBuilding> kvp in this.building)
         {
-            currencyManager.AddMoney(kvp.Value.MoneyMyltiplayer * kvp.Value.PeopleCount);
+            if(kvp.Value.MoneyMyltiplayer > 0)
+            {
+                currencyManager.AddMoney(kvp.Value.MoneyMyltiplayer);
+            }
         }
+    }
+
+    public int GetBuildingCount<T>(T instance) where T : MonoBehaviour
+    {
+        T[] allObjects = FindObjectsOfType<T>();
+
+        return allObjects.Length;
+    }
+
+    public int GetFreeBuilding()
+    {
+        foreach (KeyValuePair<int, BaseBuilding> kvp in this.building)
+        {
+            if(kvp.Value.GetState())
+            {
+                return kvp.Key;
+            }
+        }
+        return -1;
     }
 }

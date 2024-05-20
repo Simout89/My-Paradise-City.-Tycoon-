@@ -2,29 +2,33 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
 public abstract class BaseBuilding: MonoBehaviour
 {
     [SerializeField] private int PeopleSlot;
-    public int PeopleCount { get; private set; }
+    public int PeopleCount { get; set; }
     [SerializeField] public int MoneyMyltiplayer;
+    [SerializeField] public int MaxBuilding;
 
-    //private void OnEnable()
-    //{
-    //    TimeManager.Instance.OnTick += HandleTick;
-    //}
-    //private void OnDisable()
-    //{
-    //    TimeManager.Instance.OnTick -= HandleTick;
-    //}
+    public bool GetState()
+    {
+        return true;
+        if (gameObject.transform.GetComponentsInChildren<Human>().Length < PeopleSlot)
+        {
 
-    //private void HandleTick()
-    //{
-    //    TickUpdate();
-    //    CurrencyManager.Instance.AddMoney(MoneyMyltiplayer);
-    //}
+        }
+    }
 
-    public virtual void TickUpdate() { }
+    public void AddPeople()
+    {
+        PeopleSlot++;
+    }
+
+    public void RemovePeople()
+    {
+        PeopleSlot--;
+    }
 }
