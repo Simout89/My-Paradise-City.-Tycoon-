@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 public class BuildingGrid : MonoBehaviour
 {
     [Inject]
     private ModeManager modeManager;
+
+    [SerializeField] private Button cancelButton;
 
     public event Action<BaseBuilding> onPlaceBuilding;
 
@@ -20,6 +23,13 @@ public class BuildingGrid : MonoBehaviour
     private void Awake()
     {
         grid = new Building[GridSize.x, GridSize.y];
+        cancelButton.onClick.AddListener(HandleCancelButtonClicked);
+    }
+
+    private void HandleCancelButtonClicked()
+    {
+        Destroy(flyingBuilding.gameObject);
+        modeManager.ChangeMode(Modes.FreeMovement);
     }
 
     public void StartPlacingBuilding(Building buildingPrefab)
@@ -92,6 +102,8 @@ public class BuildingGrid : MonoBehaviour
         modeManager.ChangeMode(Modes.FreeMovement);
 
         onPlaceBuilding?.Invoke(flyingBuilding.GetComponent<BaseBuilding>());
+
+        flyingBuilding.GetComponent<BaseBuilding>().flying = false;
 
         flyingBuilding = null;
     }

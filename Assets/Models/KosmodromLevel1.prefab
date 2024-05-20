@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PeopleSlot: 5
-  MoneyMyltiplayer: 1
+  MoneyMultiplayer: 1
+  UpgradeCount: 1
   MaxBuilding: 5
   human: {fileID: 3829066151943292231, guid: 3a51ffc6843327c4fa055087d2f2aad2, type: 3}

@@ -8,20 +8,32 @@ using Zenject;
 
 public abstract class BaseBuilding: MonoBehaviour
 {
+    [HideInInspector] public bool flying = true;
     [SerializeField] private int PeopleSlot;
     public int PeopleCount { get; set; }
-    [SerializeField] public int MoneyMyltiplayer;
-    [SerializeField] public int MaxBuilding;
-
-    public bool GetState()
+    public int MoneyMultiplayer = 1;
+    [HideInInspector] public int UpgradeCount = 1;
+    [HideInInspector] public int Money
     {
-        return true;
-        if (gameObject.transform.GetComponentsInChildren<Human>().Length < PeopleSlot)
+        get
         {
-
+            return MoneyMultiplayer * UpgradeCount;
         }
     }
+    [SerializeField] public int MaxBuilding;
 
+    [SerializeField] private BuildingsScriptableObject[] buildingsScriptableObjects;
+
+    private int CurrentLvl = 0;
+
+    public BuildingsScriptableObject GetNextLevel()
+    {
+        return buildingsScriptableObjects[CurrentLvl];
+    }
+    public int GetLevel()
+    {
+        return CurrentLvl;
+    }
     public void AddPeople()
     {
         PeopleSlot++;
@@ -30,5 +42,25 @@ public abstract class BaseBuilding: MonoBehaviour
     public void RemovePeople()
     {
         PeopleSlot--;
+    }
+
+    public void Upgrade()
+    {
+        MoneyMultiplayer = buildingsScriptableObjects[CurrentLvl].MoneyMultiplayer;
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        Instantiate(buildingsScriptableObjects[CurrentLvl].gameObject, transform);
+        if(CurrentLvl + 1 < buildingsScriptableObjects.Length)
+        {
+            if(CurrentLvl != -1)
+            {
+                CurrentLvl++;
+            }
+        }else
+        {
+            CurrentLvl = -1;
+        }
     }
 }

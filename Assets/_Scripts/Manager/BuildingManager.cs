@@ -36,9 +36,9 @@ public class BuildingManager: MonoBehaviour
     {
         foreach (KeyValuePair<int, BaseBuilding> kvp in this.building)
         {
-            if(kvp.Value.MoneyMyltiplayer > 0)
+            if(kvp.Value.Money > 0 && (kvp.Value.flying == false))
             {
-                currencyManager.AddMoney(kvp.Value.MoneyMyltiplayer);
+                currencyManager.AddMoney(kvp.Value.Money);
             }
         }
     }
@@ -48,17 +48,5 @@ public class BuildingManager: MonoBehaviour
         T[] allObjects = FindObjectsOfType<T>();
 
         return allObjects.Length;
-    }
-
-    public int GetFreeBuilding()
-    {
-        foreach (KeyValuePair<int, BaseBuilding> kvp in this.building)
-        {
-            if(kvp.Value.GetState())
-            {
-                return kvp.Key;
-            }
-        }
-        return -1;
     }
 }
