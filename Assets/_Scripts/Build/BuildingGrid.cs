@@ -11,6 +11,9 @@ public class BuildingGrid : MonoBehaviour
     [Inject]
     private ModeManager modeManager;
 
+    [Inject]
+    private BuildingManager buildingManager;
+
     [SerializeField] private Button cancelButton;
 
     public event Action<BaseBuilding> onPlaceBuilding;
@@ -88,8 +91,26 @@ public class BuildingGrid : MonoBehaviour
         return false;
     }
 
+    public void LoadBuild(BuildingData buildingData, BaseBuilding building)
+    {
+        BaseBuilding buildInstantiate = Instantiate(building, new Vector3(buildingData.PlaceX, 0 , buildingData.PlaceY), Quaternion.identity);
+
+        for (int x = 0; x < buildingData.Size.x; x++)
+        {
+            for (int y = 0; y < buildingData.Size.y; y++)
+            {
+                grid[buildingData.PlaceX + x, buildingData.PlaceY + y] = building.GetComponent<Building>();
+            }
+        }
+        buildInstantiate.flying = false;
+        buildInstantiate.SetLevel(buildingData.Lvl);
+        buildingManager.LoadBuild(buildInstantiate);
+        
+    }
+
     private void PlaceFlyingBuilding(int placeX, int placeY)
     {
+
         for(int x = 0; x < flyingBuilding.Size.x; x++)
         {
             for (int y = 0; y < flyingBuilding.Size.y; y++)
@@ -103,7 +124,9 @@ public class BuildingGrid : MonoBehaviour
 
         onPlaceBuilding?.Invoke(flyingBuilding.GetComponent<BaseBuilding>());
 
-        flyingBuilding.GetComponent<BaseBuilding>().flying = false;
+        BaseBuilding build = flyingBuilding.GetComponent<BaseBuilding>();
+        build.flying = false;
+        build.placeX = placeX; build.placeY = placeY;
 
         flyingBuilding = null;
     }

@@ -62,10 +62,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627e3452f1a647e41a8f4d63007d6481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flying: 1
+  index: 1
   PeopleSlot: 0
+  buildingType: 1
   MoneyMultiplayer: 1
   UpgradeCount: 1
-  MaxBuilding: 0
+  MaxBuilding: 5
   buildingsScriptableObjects:
   - {fileID: 11400000, guid: 8f49300247e98ca489f0c53b88a7fc01, type: 2}
   - {fileID: 11400000, guid: fde9e7361503cd047a91574944bae98c, type: 2}

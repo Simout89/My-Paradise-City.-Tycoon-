@@ -6,7 +6,13 @@ using Zenject;
 
 public class BuildingManager: MonoBehaviour
 {
-    public Dictionary<int, BaseBuilding> building = new Dictionary<int, BaseBuilding>();
+
+    [Inject]
+    private SaveLoadSystem saveLoadSystem;
+
+    public List<BaseBuilding> building = new List<BaseBuilding>();
+
+    public event Action OnBuildPlace;
 
     [Inject]
     private BuildingGrid _buildingGrid;
@@ -29,24 +35,34 @@ public class BuildingManager: MonoBehaviour
 
     private void HandlePlaceBuilding(BaseBuilding building)
     {
-        this.building.Add(this.building.Count + 1, building);
+        this.building.Add(building);
+        OnBuildPlace?.Invoke();
+    }
+
+    public void LoadBuild(BaseBuilding building)
+    {
+        this.building.Add(building);
+        OnBuildPlace?.Invoke();
     }
 
     private void HandleTick()
     {
-        foreach (KeyValuePair<int, BaseBuilding> kvp in this.building)
+        foreach(var building in this.building)
         {
-            if(kvp.Value.Money > 0 && (kvp.Value.flying == false))
-            {
-                currencyManager.AddMoney(kvp.Value.Money);
-            }
+            currencyManager.AddMoney(building.Money);
         }
     }
 
-    public int GetBuildingCount<T>(T instance) where T : MonoBehaviour
+    public int GetBuildingCount(int index)
     {
-        T[] allObjects = FindObjectsOfType<T>();
-
-        return allObjects.Length;
+        int count = 0;
+        foreach (var building in this.building)
+        {
+            if (building.index == index)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
