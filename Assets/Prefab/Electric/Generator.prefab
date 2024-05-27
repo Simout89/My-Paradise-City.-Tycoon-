@@ -53,7 +53,7 @@ MonoBehaviour:
   buildingType: 3
   WaterCost: 0
   ElectricCost: 0
-  MoneyMultiplayer: 1
+  MoneyMultiplayer: 0
   UpgradeCount: 1
   MaxBuilding: 3
   buildingsScriptableObjects:
