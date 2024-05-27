@@ -19,11 +19,14 @@ public class BuyBuildingButton : MonoBehaviour
     private CurrencyManager currencyManager;
     [Inject]
     private BuildingManager buildingManager;
+    [Inject]
+    private UtilitiesManager utilitiesManager;
 
     private void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(HandleClick);
+        button.interactable = false;
     }
 
     private void HandleClick()
@@ -44,7 +47,8 @@ public class BuyBuildingButton : MonoBehaviour
 
     private void HandleBuildChaged()
     {
-        if((buildingManager.GetBuildingCount(building.GetComponent<BaseBuilding>().index) > building.GetComponent<BaseBuilding>().MaxBuilding))
+        BaseBuilding baseBuilding = building.GetComponent<BaseBuilding>();
+        if ((buildingManager.GetBuildingCount(building.GetComponent<BaseBuilding>().index) > building.GetComponent<BaseBuilding>().MaxBuilding))
         {
             button.interactable = false;
         }
@@ -52,8 +56,9 @@ public class BuyBuildingButton : MonoBehaviour
 
     private void HandleValueChaged(int obj)
     {
-        if((obj >= Cost) &&
-            (buildingManager.GetBuildingCount(building.GetComponent<BaseBuilding>().index) < building.GetComponent<BaseBuilding>().MaxBuilding))
+        BaseBuilding baseBuilding = building.GetComponent<BaseBuilding>();
+        if ((obj >= Cost) &&
+            (buildingManager.GetBuildingCount(building.GetComponent<BaseBuilding>().index) < building.GetComponent<BaseBuilding>().MaxBuilding) && utilitiesManager.CheckUtilitiesWalidate(baseBuilding.WaterCost, baseBuilding.ElectricCost))
         {
             button.interactable = true;
         }else

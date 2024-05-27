@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
 public class UpgradeMenu : MonoBehaviour
 {
+    public event Action OnUpgrade;
+
     [Inject]
     private CurrencyManager currencyManager;
 
@@ -28,11 +32,18 @@ public class UpgradeMenu : MonoBehaviour
         {
             selectedBuilding.Upgrade();
             WriteStats(selectedBuilding);
+            OnUpgrade.Invoke();
         }
     }
 
     private void Update()
     {
+
+        if (IsPointerOverBlockingUI())
+        {
+            // Курсор над UI элементом, не выполняем Raycast
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (SimpleInput.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, 100))
@@ -64,5 +75,27 @@ public class UpgradeMenu : MonoBehaviour
     public void ShowMenu()
     {
         menu.SetActive(true);
+    }
+
+    private bool IsPointerOverBlockingUI()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, raycastResults);
+
+        foreach (RaycastResult result in raycastResults)
+        {
+            UIClickHandler clickHandler = result.gameObject.GetComponent<UIClickHandler>();
+            if (clickHandler != null && clickHandler.isRaycastBlocking)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

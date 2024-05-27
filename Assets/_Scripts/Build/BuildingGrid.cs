@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
@@ -70,7 +71,7 @@ public class BuildingGrid : MonoBehaviour
                 flyingBuilding.transform.position = new Vector3(x,0,y);
                 flyingBuilding.SetTransparent(avaliable);
 
-                if (avaliable && SimpleInput.GetMouseButton(0))
+                if (avaliable && SimpleInput.GetMouseButton(0) && !IsPointerOverBlockingUI())
                 {
                     PlaceFlyingBuilding(x, y);
                 }
@@ -104,8 +105,9 @@ public class BuildingGrid : MonoBehaviour
         }
         buildInstantiate.flying = false;
         buildInstantiate.SetLevel(buildingData.Lvl);
+        buildInstantiate.placeX = buildingData.PlaceX;
+        buildInstantiate.placeY = buildingData.PlaceY;
         buildingManager.LoadBuild(buildInstantiate);
-        
     }
 
     private void PlaceFlyingBuilding(int placeX, int placeY)
@@ -129,5 +131,28 @@ public class BuildingGrid : MonoBehaviour
         build.placeX = placeX; build.placeY = placeY;
 
         flyingBuilding = null;
+    }
+
+
+    private bool IsPointerOverBlockingUI()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, raycastResults);
+
+        foreach (RaycastResult result in raycastResults)
+        {
+            UIClickHandler clickHandler = result.gameObject.GetComponent<UIClickHandler>();
+            if (clickHandler != null && clickHandler.isRaycastBlocking)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

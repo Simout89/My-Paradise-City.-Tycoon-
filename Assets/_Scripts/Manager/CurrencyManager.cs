@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class CurrencyManager: ValueManager
 {
+
     private int _money = 0;
+    private int _happy = 0;
 
     private void Awake()
     {

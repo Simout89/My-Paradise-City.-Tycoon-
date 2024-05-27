@@ -6,10 +6,6 @@ using Zenject;
 
 public class BuildingManager: MonoBehaviour
 {
-
-    [Inject]
-    private SaveLoadSystem saveLoadSystem;
-
     public List<BaseBuilding> building = new List<BaseBuilding>();
 
     public event Action OnBuildPlace;

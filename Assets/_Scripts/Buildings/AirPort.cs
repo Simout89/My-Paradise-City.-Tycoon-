@@ -5,24 +5,7 @@ using Zenject;
 
 public class AirPort : BaseBuilding
 {
-    [Inject]
-    private BuildingManager buildingManager;
-
-    private List<Human> humanList = new List<Human>();
-
-    [SerializeField] private Human human;
-    private void Awake()
-    {
-        SpawnPeople();
-    }
-
-    private void SpawnPeople()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            humanList.Add(Instantiate(human, transform));
-        }
-    }
+    
 
     private void FixedUpdate()
     {

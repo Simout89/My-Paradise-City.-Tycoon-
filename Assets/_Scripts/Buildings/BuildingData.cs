@@ -26,5 +26,7 @@ public class BuildingData
 public enum BuildingType
 {
     AirPort,
-    Motel
+    Motel,
+    Water,
+    Electic
 }

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7289ca8283457b44ad1147f65ecf389, type: 3}
+  m_Name: Kosmodrom 5
+  m_EditorClassIdentifier: 
+  MoneyMultiplayer: 1
+  HappyMultiplayer: 1
+  Cost: 0
+  gameObject: {fileID: 7451827899024630559, guid: fee9ce2a2698fe64e9ee5c1b76b76cb4, type: 3}

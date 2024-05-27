@@ -14,6 +14,8 @@ public abstract class BaseBuilding: MonoBehaviour
     [SerializeField] public int index;
     [SerializeField] private int PeopleSlot;
     [SerializeField] public BuildingType buildingType;
+    [SerializeField] public int WaterCost;
+    [SerializeField] public int ElectricCost;
     public int PeopleCount { get; set; }
     public int MoneyMultiplayer = 1;
     [HideInInspector] public int UpgradeCount = 1;
@@ -61,8 +63,10 @@ public abstract class BaseBuilding: MonoBehaviour
             {
                 CurrentLvl = -1;
             }
+            UpgradeSuccesful();
         }
     }
+
     public void AddPeople()
     {
         PeopleSlot++;
@@ -91,5 +95,11 @@ public abstract class BaseBuilding: MonoBehaviour
         {
             CurrentLvl = -1;
         }
+        UpgradeSuccesful();
+    }
+
+    public virtual void UpgradeSuccesful()
+    {
+
     }
 }
