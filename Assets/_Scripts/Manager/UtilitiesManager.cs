@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
 public class UtilitiesManager : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _waterText;
+    [SerializeField] private TMP_Text _electText;
     public int _water { get; private set; }
     public int _electricity { get; private set; }
     public int _consumptionWater { get; private set; }
@@ -15,6 +18,11 @@ public class UtilitiesManager : MonoBehaviour
     private UpgradeMenu _upgradeMenu;
     [Inject]
     private BuildingManager buildingManager;
+
+    private void Awake()
+    {
+        ChangeText();
+    }
 
     private void OnEnable()
     {
@@ -63,5 +71,13 @@ public class UtilitiesManager : MonoBehaviour
             
         }
         print($"Water: {_water} Elect: {_electricity}");
+        ChangeText();
+    }
+
+
+    private void ChangeText()
+    {
+        _waterText.text = $"{_consumptionWater}/{_water}";
+        _electText.text = $"{_consumptionElectricity}/{_electricity}";
     }
 }

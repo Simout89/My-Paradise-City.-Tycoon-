@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrencyManager: ValueManager
+public class CurrencyManager : ValueManager
 {
 
-    private int _money = 0;
+    public int _money { get; private set; }
     private int _happy = 0;
 
     private void Awake()
@@ -31,5 +31,12 @@ public class CurrencyManager: ValueManager
         _money -= value;
         ValueChanged(_money);
         return true;
+    }
+
+    public void SetMoney(int value)
+    {
+        _money = value;
+        ValueChanged(_money);
+
     }
 }

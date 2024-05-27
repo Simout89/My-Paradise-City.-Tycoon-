@@ -78,7 +78,7 @@ MonoBehaviour:
   buildingsScriptableObjects: []
   placeX: 0
   placeY: 0
-  _waterOnLvl: 0500000022000000010000000300000004000000
+  _waterOnLvl: 0100000002000000030000000400000005000000
 --- !u!65 &5033851077520713508
 BoxCollider:
   m_ObjectHideFlags: 0

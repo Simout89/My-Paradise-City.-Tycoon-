@@ -58,7 +58,7 @@ MonoBehaviour:
   buildingsScriptableObjects: []
   placeX: 0
   placeY: 0
-  _electricOnLvl: 0300000037000000010000000200000004000000
+  _electricOnLvl: 0100000002000000030000000400000005000000
 --- !u!114 &7945171081084716645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9dc808db465e1ef4eae9ac3c84c77892, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23e17e2efdf0ed946b7cc1ffe82798c2, type: 2}
     - target: {fileID: 919132149155446097, guid: 9dc808db465e1ef4eae9ac3c84c77892, type: 3}
       propertyPath: m_Name
       value: SunnuPanel1
