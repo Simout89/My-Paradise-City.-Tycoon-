@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5873637136923595228}
   - component: {fileID: 134968849685816306}
   - component: {fileID: 7945171081084716645}
+  - component: {fileID: 8368104418875028057}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -55,7 +56,8 @@ MonoBehaviour:
   MoneyMultiplayer: 1
   UpgradeCount: 1
   MaxBuilding: 3
-  buildingsScriptableObjects: []
+  buildingsScriptableObjects:
+  - {fileID: 11400000, guid: eb151c5390e79d74493c5b69e1a8baf7, type: 2}
   placeX: 0
   placeY: 0
   _electricOnLvl: 0100000002000000030000000400000005000000
@@ -74,6 +76,27 @@ MonoBehaviour:
   MainRenderer:
   - {fileID: 6265614434388313941}
   Size: {x: 3, y: 3}
+--- !u!65 &8368104418875028057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585604577782271280}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.0317478, y: 1, z: 2.984683}
+  m_Center: {x: 1.0158739, y: 0, z: 0.9923415}
 --- !u!1001 &4697952053486689233
 PrefabInstance:
   m_ObjectHideFlags: 0

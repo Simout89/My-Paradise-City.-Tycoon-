@@ -14,6 +14,6 @@ public class ElectricBuild : BaseBuilding
 
     public override void UpgradeSuccesful()
     {
-        _electric = _electricOnLvl[UpgradeCount - 1];
+        _electric = _electricOnLvl[UpgradeCount];
     }
 }
