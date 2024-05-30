@@ -13,5 +13,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<SaveLoadSystem>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<UtilitiesManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<UpgradeMenu>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<HappyManager>().FromComponentInHierarchy().AsSingle().NonLazy();
     }
 }
