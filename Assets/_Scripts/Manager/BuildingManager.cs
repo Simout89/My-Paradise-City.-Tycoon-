@@ -49,12 +49,12 @@ public class BuildingManager: MonoBehaviour
         }
     }
 
-    public int GetBuildingCount(int index)
+    public int GetBuildingCount(BuildingType index)
     {
         int count = 0;
         foreach (var building in this.building)
         {
-            if (building.index == index)
+            if (building.buildingType == index)
             {
                 count++;
             }

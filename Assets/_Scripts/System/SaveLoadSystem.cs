@@ -1,13 +1,14 @@
-using Palmmedia.ReportGenerator.Core.Common;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using UnityEngine; 
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class SaveLoadSystem : MonoBehaviour
 {
+    public event Action DataLoaded;
+
+    private bool _reset = false;
 
     [Inject]
     private BuildingGrid buildingGrid;
@@ -45,6 +46,24 @@ public class SaveLoadSystem : MonoBehaviour
         {
             buildingGrid.LoadBuild(building, builds[(int)building.buildingType]);
         }
+        DataLoaded?.Invoke();
+    }
 
+    public void Reset()
+    {
+        _reset = true;
+        ES3.DeleteFile();
+        SceneManager.LoadScene(0);
+    }
+
+    private void Start()
+    {
+        LoadData();
+    }
+
+    private void OnApplicationQuit()
+    {
+        if(!_reset)
+            SaveDate();
     }
 }

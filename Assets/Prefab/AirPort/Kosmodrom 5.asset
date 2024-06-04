@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Kosmodrom 5
   m_EditorClassIdentifier: 
   MoneyMultiplayer: 1
-  HappyMultiplayer: 1
+  HappyMultiplayer: 4
   Cost: 0
   gameObject: {fileID: 7451827899024630559, guid: fee9ce2a2698fe64e9ee5c1b76b76cb4, type: 3}

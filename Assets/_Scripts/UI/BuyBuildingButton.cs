@@ -12,7 +12,8 @@ public class BuyBuildingButton : MonoBehaviour
     [SerializeField] private Building building;
     private Button button;
 
-
+    [Inject]
+    private SaveLoadSystem saveLoadSystem;
     [Inject]
     private BuildingGrid buildingGrid;
     [Inject]
@@ -38,17 +39,26 @@ public class BuyBuildingButton : MonoBehaviour
     {
         currencyManager.OnValueChanged += HandleValueChaged;
         buildingManager.OnBuildPlace += HandleBuildChaged;
+        saveLoadSystem.DataLoaded += HandleDataLoaded;
+
     }
     private void OnDisable()
     {
         currencyManager.OnValueChanged -= HandleValueChaged;
         buildingManager.OnBuildPlace -= HandleBuildChaged;
+        saveLoadSystem.DataLoaded -= HandleDataLoaded;
+
+    }
+
+    private void HandleDataLoaded()
+    {
+        HandleBuildChaged();
     }
 
     private void HandleBuildChaged()
     {
         BaseBuilding baseBuilding = building.GetComponent<BaseBuilding>();
-        if ((buildingManager.GetBuildingCount(building.GetComponent<BaseBuilding>().index) > building.GetComponent<BaseBuilding>().MaxBuilding))
+        if ((buildingManager.GetBuildingCount(baseBuilding.buildingType) > baseBuilding.MaxBuilding))
         {
             button.interactable = false;
         }
@@ -58,7 +68,7 @@ public class BuyBuildingButton : MonoBehaviour
     {
         BaseBuilding baseBuilding = building.GetComponent<BaseBuilding>();
         if ((obj >= Cost) &&
-            (buildingManager.GetBuildingCount(building.GetComponent<BaseBuilding>().index) < building.GetComponent<BaseBuilding>().MaxBuilding) && utilitiesManager.CheckUtilitiesWalidate(baseBuilding.WaterCost, baseBuilding.ElectricCost))
+            (buildingManager.GetBuildingCount(baseBuilding.buildingType) < baseBuilding.MaxBuilding) && utilitiesManager.CheckUtilitiesWalidate(baseBuilding.WaterCost, baseBuilding.ElectricCost))
         {
             button.interactable = true;
         }else

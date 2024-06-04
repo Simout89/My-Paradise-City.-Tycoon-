@@ -7,6 +7,8 @@ using Zenject;
 
 public class UtilitiesManager : MonoBehaviour
 {
+    [Inject]
+    private SaveLoadSystem saveLoadSystem;
     [SerializeField] private TMP_Text _waterText;
     [SerializeField] private TMP_Text _electText;
     public int _water { get; private set; }
@@ -19,24 +21,25 @@ public class UtilitiesManager : MonoBehaviour
     [Inject]
     private BuildingManager buildingManager;
 
-    private void Awake()
-    {
-        ChangeText();
-    }
-
     private void OnEnable()
     {
         buildingManager.OnBuildPlace += MapChanged;
         _upgradeMenu.OnUpgrade += MapChanged;
+        saveLoadSystem.DataLoaded += HandleDataLoaded;
     }
 
     private void OnDisable()
     {
         _upgradeMenu.OnUpgrade -= MapChanged;
         buildingManager.OnBuildPlace -= MapChanged;
-
+        saveLoadSystem.DataLoaded -= HandleDataLoaded;
     }
 
+    private void HandleDataLoaded()
+    {
+        MapChanged();
+        ChangeText();
+    }
 
     public bool CheckUtilitiesWalidate(int waterCost, int elecCost)
     {
@@ -53,6 +56,8 @@ public class UtilitiesManager : MonoBehaviour
     {
         _water = 0;
         _electricity = 0;
+        _consumptionWater = 0;
+        _consumptionElectricity = 0;
         foreach (var build in buildingManager.building)
         {
             if (build.TryGetComponent(out WaterBuild waterBuild))

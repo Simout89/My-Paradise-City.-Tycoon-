@@ -12,7 +12,7 @@ public abstract class BaseBuilding: MonoBehaviour
 {
     [HideInInspector] public bool flying = true;
     [SerializeField] public int index;
-    [SerializeField] private int PeopleSlot;
+    [SerializeField] public int Happy { get; private set; }
     [SerializeField] public BuildingType buildingType;
     [SerializeField] public int WaterCost;
     [SerializeField] public int ElectricCost;
@@ -46,7 +46,9 @@ public abstract class BaseBuilding: MonoBehaviour
     public void SetLevel(int lvl)
     {
         while (CurrentLvl != lvl) {
-            MoneyMultiplayer = buildingsScriptableObjects[CurrentLvl].MoneyMultiplayer;
+            var ScriptableObjectBuild = buildingsScriptableObjects[CurrentLvl];
+            MoneyMultiplayer = ScriptableObjectBuild.MoneyMultiplayer;
+            Happy = ScriptableObjectBuild.HappyMultiplayer;
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
@@ -67,19 +69,11 @@ public abstract class BaseBuilding: MonoBehaviour
         }
     }
 
-    public void AddPeople()
-    {
-        PeopleSlot++;
-    }
-
-    public void RemovePeople()
-    {
-        PeopleSlot--;
-    }
-
     public void Upgrade()
     {
-        MoneyMultiplayer = buildingsScriptableObjects[CurrentLvl].MoneyMultiplayer;
+        var ScriptableObjectBuild = buildingsScriptableObjects[CurrentLvl];
+        MoneyMultiplayer = ScriptableObjectBuild.MoneyMultiplayer;
+        Happy = ScriptableObjectBuild.HappyMultiplayer;
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
