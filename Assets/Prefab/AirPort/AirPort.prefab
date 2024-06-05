@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flying: 1
-  index: 0
-  PeopleSlot: 0
+  <Happy>k__BackingField: 1
   buildingType: 0
   WaterCost: 1
   ElectricCost: 1
+  <UpgradeMenuClip>k__BackingField: {fileID: 8300000, guid: 0d7a293f2883a5945adb0e0b5614a2b2, type: 3}
   MoneyMultiplayer: 1
   UpgradeCount: 1
   MaxBuilding: 3

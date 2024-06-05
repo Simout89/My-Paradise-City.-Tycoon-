@@ -55,6 +55,11 @@ public class BuyBuildingButton : MonoBehaviour
         HandleBuildChaged();
     }
 
+    private void FixedUpdate()
+    {
+        HandleBuildChaged();
+    }
+
     private void HandleBuildChaged()
     {
         BaseBuilding baseBuilding = building.GetComponent<BaseBuilding>();

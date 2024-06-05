@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7289ca8283457b44ad1147f65ecf389, type: 3}
   m_Name: Kosmodrom 2
   m_EditorClassIdentifier: 
-  MoneyMultiplayer: 1
+  MoneyMultiplayer: 2
   HappyMultiplayer: 1
-  Cost: 0
+  MoneyCost: 0
+  HappyCost: 2
   gameObject: {fileID: 6779086422557369314, guid: 9e5b920e706ca284189dc3d5f80cf93d, type: 3}

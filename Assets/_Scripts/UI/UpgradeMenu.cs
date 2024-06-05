@@ -13,10 +13,15 @@ public class UpgradeMenu : MonoBehaviour
     public event Action OnUpgrade;
 
     [Inject]
+    private HappyManager happyManager;
+    [Inject]
     private CurrencyManager currencyManager;
+    [Inject]
+    private AudioManager audioManager;
 
     [SerializeField] private GameObject menu;
     [SerializeField] private TMP_Text costText;
+    [SerializeField] private TMP_Text happyText;
     [SerializeField] private Button upgradeButton;
 
     private BaseBuilding selectedBuilding;
@@ -28,7 +33,7 @@ public class UpgradeMenu : MonoBehaviour
 
     private void HandleUpgradeButton()
     {
-        if(currencyManager.TrySpendMoney(selectedBuilding.GetNextLevel().Cost))
+        if(currencyManager.TrySpendMoney(selectedBuilding.GetNextLevel().MoneyCost) && happyManager.EnoughHappy(selectedBuilding.GetNextLevel().HappyCost))
         {
             selectedBuilding.Upgrade();
             WriteStats(selectedBuilding);
@@ -53,6 +58,10 @@ public class UpgradeMenu : MonoBehaviour
                 ShowMenu();
                 WriteStats(baseBuilding);
                 selectedBuilding = baseBuilding;
+                if(baseBuilding.UpgradeMenuClip != null)
+                {
+                    audioManager.PlayClip(baseBuilding.UpgradeMenuClip);
+                }
             }
         }
     }
@@ -61,14 +70,12 @@ public class UpgradeMenu : MonoBehaviour
     {
         if(baseBuilding.GetLevel() != -1)
         {
-            costText.text = $"Upgrade cost: {baseBuilding.GetNextLevel().Cost}\n" +
-                    $"MoneyMultiplaer: {baseBuilding.GetNextLevel().MoneyMultiplayer}\n" +
-                    $"HappyMultiplaer: {baseBuilding.GetNextLevel().HappyMultiplayer}\n";
+            costText.text = baseBuilding.GetNextLevel().MoneyCost.ToString();
+            happyText.text = baseBuilding.GetNextLevel().Happy.ToString();
         }else
         {
-            costText.text = $"Upgrade cost: MAX\n" +
-                    $"MoneyMultiplaer: MAX\n" +
-                    $"HappyMultiplaer: MAX\n";
+            costText.text = $"Max";
+            happyText.text = $"Max";
         }
     }
 

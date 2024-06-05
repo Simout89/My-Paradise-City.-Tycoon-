@@ -11,11 +11,11 @@ using Zenject;
 public abstract class BaseBuilding: MonoBehaviour
 {
     [HideInInspector] public bool flying = true;
-    [SerializeField] public int index;
-    [SerializeField] public int Happy { get; private set; }
+    [field: SerializeField] public int Happy { get; private set; }
     [SerializeField] public BuildingType buildingType;
     [SerializeField] public int WaterCost;
     [SerializeField] public int ElectricCost;
+    [field:SerializeField] public AudioClip UpgradeMenuClip { get; private set; }
     public int PeopleCount { get; set; }
     public int MoneyMultiplayer = 1;
     [HideInInspector] public int UpgradeCount = 1;
@@ -48,7 +48,7 @@ public abstract class BaseBuilding: MonoBehaviour
         while (CurrentLvl != lvl) {
             var ScriptableObjectBuild = buildingsScriptableObjects[CurrentLvl];
             MoneyMultiplayer = ScriptableObjectBuild.MoneyMultiplayer;
-            Happy = ScriptableObjectBuild.HappyMultiplayer;
+            Happy = ScriptableObjectBuild.Happy;
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
@@ -73,7 +73,7 @@ public abstract class BaseBuilding: MonoBehaviour
     {
         var ScriptableObjectBuild = buildingsScriptableObjects[CurrentLvl];
         MoneyMultiplayer = ScriptableObjectBuild.MoneyMultiplayer;
-        Happy = ScriptableObjectBuild.HappyMultiplayer;
+        Happy = ScriptableObjectBuild.Happy;
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);

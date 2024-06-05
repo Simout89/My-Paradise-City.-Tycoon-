@@ -40,4 +40,16 @@ public class HappyManager : ValueManager
         }
         ValueChanged(Happy);
     }
+
+    public bool EnoughHappy(int Happy)
+    {
+        if (Happy <= this.Happy)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
